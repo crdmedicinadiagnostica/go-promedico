@@ -99,11 +99,14 @@ func laudosExame(busca int) (Laudos, int, error) {
 	i := 0
 	rows, err := GetDB().Query(`select 
                               ip.accession_number as accession_number, 
-                              le.ds_crm_nr || le.ds_crm_uf as crm_medico,
+							  case when le.ds_crm_nr is null and le.ds_crm_uf is null then me.ds_crm_nr || me.ds_crm_uf
+							  else le.ds_crm_nr || le.ds_crm_uf end as crm_medico,
                               encode(la.bb_laudo, 'base64') as Laudo
 							  from integracao_promedico ip
 							  join laudos la on (ip.accession_number = la.cd_laudo)
-							  join laudos_externo le on ip.accession_number = le.nr_controle
+							  left join laudos_externo le on ip.accession_number = le.nr_controle
+							  left join atendimentos ae on ip.accession_number = ae.cd_atendimento
+							  left join medicos me on ae.cd_medico = me.cd_medico
 							  where ip.accession_number = $1 limit 1`, busca)
 
 	defer rows.Close()

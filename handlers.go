@@ -29,7 +29,6 @@ func createExames(w http.ResponseWriter, r *http.Request) {
 	err = ioutil.WriteFile("recebimento.json", recebimento, 0644)
 	if err != nil {
 		fmt.Println("Error writing json to file:", err)
-
 	}
 
 	for _, pedidos := range post {
