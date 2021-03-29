@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/gocraft/dbr"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 )
 
