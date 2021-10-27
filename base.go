@@ -82,7 +82,8 @@ func gravarExame(post Exames) int {
 		post.ModalidadeDicom,
 		post.Sexo,
 		post.CodigoMedico,
-		post.CodigoProcedimento).Scan(&CdIntegracao)
+		post.CodigoProcedimento,
+		post.CodigoExame).Scan(&CdIntegracao)
 
 	fmt.Println(err)
 	if err != nil {
