@@ -14,6 +14,7 @@ type Exames struct {
 	Sexo               string `json:"Sexo"`
 	CodigoProcedimento string `json:"CodigoProcedimento"`
 	CodigoMedico       int    `json:"CodigoMedico"`
+	CodigoExame		   int    `json:"CodigoExame"`
 }
 
 type Laudos struct {

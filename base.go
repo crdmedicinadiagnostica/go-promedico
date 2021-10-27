@@ -65,9 +65,10 @@ func gravarExame(post Exames) int {
 						 ds_sexo,
 						 cd_medico,
 						 cd_procedimento,
+						 codigoexame,
 						 created_at
 						 ) 
-                         values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,now()) returning cd_integracao`,
+                         values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,now()) returning cd_integracao`,
 
 		post.AccessionNumber,
 		post.PatientID,
