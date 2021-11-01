@@ -32,7 +32,7 @@ func createExames(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, pedidos := range post {
-		cdIntegracao := gravarExame(pedidos)
+		cdIntegracao := gravarExame(pedidos, recebimento)
 
 		retu.AccessionNumber = pedidos.AccessionNumber
 		if cdIntegracao == 0 {

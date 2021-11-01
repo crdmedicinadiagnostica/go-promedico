@@ -19,7 +19,7 @@ type Exames struct {
 
 type Laudos struct {
 	AccessionNumber string `json:"AccessionNumber"`
-	CrmMedico       string `json:"crm_medico"`
+	CrmMedico       *string `json:"crm_medico"`
 	Laudo           string `json:"Laudo"`
 }
 

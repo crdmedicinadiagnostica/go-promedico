@@ -26,8 +26,9 @@ func init() {
 	password := os.Getenv("db_pass")
 	dbName := os.Getenv("db_name")
 	dbHost := os.Getenv("db_host")
+	dbPort := os.Getenv("db_port")
 
-	dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password) //Build connection string
+	dbURI := fmt.Sprintf("host=%s user=%s dbname=%s port=%s sslmode=disable password=%s", dbHost, username, dbName, dbPort, password) //Build connection string
 	fmt.Println(dbURI)
 
 	conn, err := sql.Open("postgres", dbURI)
@@ -43,7 +44,7 @@ func GetDB() *sql.DB {
 	return db
 }
 
-func gravarExame(post Exames) int {
+func gravarExame(post Exames, json []byte) int {
 	var CdIntegracao int
 
 	temp := strings.Split(post.DataExame, "/")
@@ -66,9 +67,10 @@ func gravarExame(post Exames) int {
 						 cd_medico,
 						 cd_procedimento,
 						 codigoexame,
+						 json_recebimento,
 						 created_at
 						 ) 
-                         values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,now()) returning cd_integracao`,
+                         values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,now()) returning cd_integracao`,
 
 		post.AccessionNumber,
 		post.PatientID,
@@ -83,7 +85,8 @@ func gravarExame(post Exames) int {
 		post.Sexo,
 		post.CodigoMedico,
 		post.CodigoProcedimento,
-		post.CodigoExame).Scan(&CdIntegracao)
+		post.CodigoExame,
+		json).Scan(&CdIntegracao)
 
 	fmt.Println(err)
 	if err != nil {
