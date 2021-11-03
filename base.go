@@ -109,8 +109,8 @@ func laudosExame(busca int) (Laudos, int, error) {
                               encode(la.bb_laudo, 'base64') as Laudo
 							  from integracao_promedico ip
 							  join laudos la on (ip.accession_number = la.cd_laudo)
-							  left join laudos_externo le on ip.accession_number = le.nr_controle
-							  left join atendimentos ae on ip.accession_number = ae.cd_atendimento
+							  left join laudos_externo le on ip.codigoexame = le.nr_controle
+							  left join atendimentos ae on ip.codigoexame = ae.cd_atendimento
 							  left join medicos me on ae.cd_medico = me.cd_medico
 							  where ip.accession_number = $1 limit 1`, busca)
 
